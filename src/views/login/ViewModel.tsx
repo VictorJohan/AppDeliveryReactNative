@@ -1,10 +1,17 @@
 import React, { useState } from 'react'
 import { UsuarioService } from '../../services/UsuarioService';
 import { Usuario } from '../../models/Usuario';
+import { LocalData } from '../../data/LocalData';
+import { useNavigation } from '@react-navigation/native';
+import { StackNavigationProp } from '@react-navigation/stack';
+import { RootStackParamList } from '../../../App';
 
-export const HomeViewModel = () => {
+
+export const LoginViewModel = () => {
 
     const {login} = new UsuarioService();
+    const {set} = LocalData();
+    const navigate = useNavigation<StackNavigationProp<RootStackParamList>>()
 
     const [message, setMessage] = useState('');
     const [values, setValues] = useState({
@@ -20,7 +27,9 @@ export const HomeViewModel = () => {
         if (validarForm()) {
             const response = await login(new Usuario(values));
             if (response.success) {
+                set('usuario', JSON.stringify(response.data));
                 setMessage(response.message);
+                navigate.navigate('ProfileInfoScreen');
             }else{
                 setMessage(response.message);
             }
@@ -47,4 +56,4 @@ export const HomeViewModel = () => {
     }
 }
 
-export default HomeViewModel
+export default LoginViewModel

@@ -57,10 +57,11 @@ export const styles = StyleSheet.create({
       alignSelf: 'center',
       top: '5%',
     },
-    logo: {
+    imageProfile: {
       width: 100,
       height: 100,
       alignSelf: 'center',
+      borderRadius: 50,
     },
     logoText: {
       color: 'white',

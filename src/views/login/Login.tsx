@@ -5,13 +5,17 @@ import { StackNavigationProp } from '@react-navigation/stack';
 import { RootStackParamList } from '../../../App';
 import useViewModel from './ViewModel';
 import { InputTextIcon } from '../../components/InputTextIcon';
-import { styles } from './HomeStyles';
+import { styles } from './LoginStyles';
 import { useEffect } from 'react';
+import { useUsuario } from '../../hooks/useUsuario';
 
-export const HomeScreen = () => {
+export const LoginScreen = () => {
 
     const { correo, password, message, onChange, ingresar } = useViewModel();
     const navigate = useNavigation<StackNavigationProp<RootStackParamList>>()
+    const {usuario} = useUsuario();
+    console.log('usuario:',usuario);
+    
 
     useEffect(() => {
         if (message !== '') {

@@ -6,7 +6,7 @@ import { InputTextIcon } from '../../components/InputTextIcon';
 import { styles } from './RegisterStyles'
 
 export const RegisterScreen = () => {
-  const { nombres, message, apellidos, correo, telefono, password, confirmacionPassword, registrar, onChange } = useViewModel();
+  const { nombres, message, apellidos, correo, telefono, image, password, confirmacionPassword, registrar, onChange, pickImage } = useViewModel();
 
   useEffect(() => {
     if (message != '') {
@@ -20,9 +20,21 @@ export const RegisterScreen = () => {
       <Image style={styles.imgBg} source={require('../../../..../../assets/chef.jpg')} />
       <View style={styles.logoContainer}>
 
-        <Image style={styles.logo}
-          source={require('../../../assets/user_image.png')}
-        />
+        <TouchableOpacity onPress={() => { pickImage() }}>
+
+          {
+            image === '' 
+            ? 
+            <Image style={styles.imageProfile}
+              source={require('../../../assets/user_image.png')}
+            />
+            : 
+            <Image style={styles.imageProfile}
+            source={{uri: image}}
+          />
+          }
+
+        </TouchableOpacity>
         <Text style={styles.logoText}>Selecciona una Imagen</Text>
       </View>
 

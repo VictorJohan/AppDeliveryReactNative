@@ -1,10 +1,28 @@
 import React, { useState } from 'react'
 import { UsuarioService } from '../../services/UsuarioService'
 import { Usuario } from '../../models/Usuario';
+import * as ImagePicker from 'expo-image-picker';
 
 export const RegisterViewModel = () => {
 
   const { save } = new UsuarioService();
+
+  const [file, setFile] = useState<ImagePicker.ImagePickerAsset>();
+
+  const pickImage = async () => {
+    // No permissions request is necessary for launching the image library
+    let result = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.All,
+      allowsEditing: true,
+      quality: 1,
+    });
+  
+    if(!result.canceled){
+      onChange('image', result!.assets![0].uri);
+      setFile(result!.assets![0]);
+    }
+    
+  };
 
   const [message, setMessage] = useState('');
   const [values, setValues] = useState({
@@ -13,7 +31,8 @@ export const RegisterViewModel = () => {
     correo: '',
     telefono: '',
     password: '',
-    confirmacionPassword: ''
+    confirmacionPassword: '',
+    image: ''
   })
 
   const registrar = async () => {
@@ -66,7 +85,8 @@ export const RegisterViewModel = () => {
       correo: '',
       telefono: '',
       password: '',
-      confirmacionPassword: ''
+      confirmacionPassword: '',
+      image: ''
     })
   }
 
@@ -78,7 +98,8 @@ export const RegisterViewModel = () => {
     ...values,
     onChange,
     registrar,
-    message
+    message,
+    pickImage
   }
 }
 
