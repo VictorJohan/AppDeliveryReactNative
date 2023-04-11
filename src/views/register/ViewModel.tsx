@@ -6,7 +6,7 @@ import * as ImagePicker from 'expo-image-picker';
 export const RegisterViewModel = () => {
 
   const { save } = new UsuarioService();
-
+  const [status, requestPermission] = ImagePicker.useCameraPermissions();
   const [file, setFile] = useState<ImagePicker.ImagePickerAsset>();
 
   const pickImage = async () => {
@@ -16,12 +16,27 @@ export const RegisterViewModel = () => {
       allowsEditing: true,
       quality: 1,
     });
-  
-    if(!result.canceled){
+
+    if (!result.canceled) {
       onChange('image', result!.assets![0].uri);
       setFile(result!.assets![0]);
     }
-    
+
+  };
+
+  const takePhoto = async () => {
+   
+    let result = await ImagePicker.launchCameraAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.All,
+      allowsEditing: true,
+      quality: 1,
+    });
+
+    if (!result.canceled) {
+      onChange('image', result!.assets![0].uri);
+      setFile(result!.assets![0]);
+    }
+
   };
 
   const [message, setMessage] = useState('');
@@ -99,7 +114,8 @@ export const RegisterViewModel = () => {
     onChange,
     registrar,
     message,
-    pickImage
+    pickImage,
+    takePhoto
   }
 }
 
