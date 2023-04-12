@@ -2,14 +2,20 @@ import React, { useState } from 'react'
 import { UsuarioService } from '../../services/UsuarioService'
 import { Usuario } from '../../models/Usuario';
 import * as ImagePicker from 'expo-image-picker';
+import { FirebaseManager } from '../../utils/Firebase';
 
 export const RegisterViewModel = () => {
 
   const { save } = new UsuarioService();
+
+  const {upload} = FirebaseManager();
+
   const [status, requestPermission] = ImagePicker.useCameraPermissions();
   const [file, setFile] = useState<ImagePicker.ImagePickerAsset>();
 
   const pickImage = async () => {
+
+  
     // No permissions request is necessary for launching the image library
     let result = await ImagePicker.launchImageLibraryAsync({
       mediaTypes: ImagePicker.MediaTypeOptions.All,
@@ -20,12 +26,17 @@ export const RegisterViewModel = () => {
     if (!result.canceled) {
       onChange('image', result!.assets![0].uri);
       setFile(result!.assets![0]);
+      const response = await fetch(result!.assets![0].uri);
+      const blob = await response.blob();
+      
+      await upload(blob, 'Carro1');
+
     }
 
   };
 
   const takePhoto = async () => {
-   
+
     let result = await ImagePicker.launchCameraAsync({
       mediaTypes: ImagePicker.MediaTypeOptions.All,
       allowsEditing: true,
