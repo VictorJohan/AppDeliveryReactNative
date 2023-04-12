@@ -8,9 +8,6 @@ export const RegisterViewModel = () => {
 
   const { save } = new UsuarioService();
 
-  const {upload} = FirebaseManager();
-
-  const [status, requestPermission] = ImagePicker.useCameraPermissions();
   const [file, setFile] = useState<ImagePicker.ImagePickerAsset>();
 
   const pickImage = async () => {
@@ -29,8 +26,6 @@ export const RegisterViewModel = () => {
       const response = await fetch(result!.assets![0].uri);
       const blob = await response.blob();
       
-      await upload(blob, 'Carro1');
-
     }
 
   };

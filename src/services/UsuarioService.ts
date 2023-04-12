@@ -2,14 +2,16 @@ import { AxiosError } from "axios";
 import { ApiDelivery } from "../api/ApiDelivery";
 import { Response } from "../api/Response";
 import { Usuario } from "../models/Usuario";
-import { FirebaseService } from "./FirebaseService";
+import { FirebaseManager } from "../utils/Firebase";
+
 
 export class UsuarioService {
-    async saveWithImage(usuario: Usuario, image: Blob): Promise<Response<Usuario>> {
+    async saveWithImage(usuario: Usuario): Promise<Response<Usuario>> {
         try {
-            const firebase = new FirebaseService();
+           
+            const {uploadImageProfile} = FirebaseManager();
 
-           usuario.image = await firebase.saveProfileImage(image, usuario.usuarioId.toString());
+            usuario.image = await uploadImageProfile(usuario.image, usuario.usuarioId.toString());
 
             const response = await ApiDelivery.post<Response<Usuario>>('usuario', usuario);
             return Promise.resolve(response.data);
@@ -22,9 +24,22 @@ export class UsuarioService {
 
     async save(usuario: Usuario): Promise<Response<Usuario>> {
         try {
-            const firebase = new FirebaseService();
-
             const response = await ApiDelivery.post<Response<Usuario>>('usuario', usuario);
+            return Promise.resolve(response.data);
+        } catch (error) {
+            let e = (error as AxiosError);
+            const apiError: Response<Usuario> = JSON.parse(JSON.stringify(e.response?.data));
+            return Promise.resolve(apiError)
+        }
+    }
+
+    async UpdateImageProfile(usuario: Usuario): Promise<Response<Usuario>> {
+        try {
+            
+            const {uploadImageProfile} = FirebaseManager();
+            usuario.image = await uploadImageProfile(usuario.image, usuario.usuarioId.toString());
+
+            const response = await ApiDelivery.post<Response<Usuario>>('usuario/UpdateImageProfile', usuario);
             return Promise.resolve(response.data);
         } catch (error) {
             let e = (error as AxiosError);
