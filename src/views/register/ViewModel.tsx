@@ -3,47 +3,13 @@ import { UsuarioService } from '../../services/UsuarioService'
 import { Usuario } from '../../models/Usuario';
 import * as ImagePicker from 'expo-image-picker';
 import { FirebaseManager } from '../../utils/Firebase';
+import { LocalData } from '../../data/LocalData';
 
 export const RegisterViewModel = () => {
 
-  const { save } = new UsuarioService();
+  const { save, UpdateImageProfile } = new UsuarioService();
+  const [isLoading, setIsLoading] = useState(false);
 
-  const [file, setFile] = useState<ImagePicker.ImagePickerAsset>();
-
-  const pickImage = async () => {
-
-  
-    // No permissions request is necessary for launching the image library
-    let result = await ImagePicker.launchImageLibraryAsync({
-      mediaTypes: ImagePicker.MediaTypeOptions.All,
-      allowsEditing: true,
-      quality: 1,
-    });
-
-    if (!result.canceled) {
-      onChange('image', result!.assets![0].uri);
-      setFile(result!.assets![0]);
-      const response = await fetch(result!.assets![0].uri);
-      const blob = await response.blob();
-      
-    }
-
-  };
-
-  const takePhoto = async () => {
-
-    let result = await ImagePicker.launchCameraAsync({
-      mediaTypes: ImagePicker.MediaTypeOptions.All,
-      allowsEditing: true,
-      quality: 1,
-    });
-
-    if (!result.canceled) {
-      onChange('image', result!.assets![0].uri);
-      setFile(result!.assets![0]);
-    }
-
-  };
 
   const [message, setMessage] = useState('');
   const [values, setValues] = useState({
@@ -58,13 +24,49 @@ export const RegisterViewModel = () => {
 
   const registrar = async () => {
     if (isValidForm()) {
+      setIsLoading(true);
       const response = await save(new Usuario(values));
       if (response.success) {
         setMessage(response.message);
+
+        if (values.image !== '') {
+          await UpdateImageProfile(response.data!)
+        }
+
         limpiar();
       }
+      setIsLoading(false);
     }
   }
+
+  const pickImage = async () => {
+
+    let result = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.All,
+      allowsEditing: true,
+      quality: 1,
+    });
+
+    if (!result.canceled) {
+      onChange('image', result!.assets![0].uri);
+
+    }
+
+  };
+
+  const takePhoto = async () => {
+
+    let result = await ImagePicker.launchCameraAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.All,
+      allowsEditing: true,
+      quality: 1,
+    });
+
+    if (!result.canceled) {
+      onChange('image', result!.assets![0].uri);
+    }
+
+  };
 
   const isValidForm = (): boolean => {
     if (values.nombres === '') {
@@ -121,7 +123,9 @@ export const RegisterViewModel = () => {
     registrar,
     message,
     pickImage,
-    takePhoto
+    takePhoto,
+    isLoading,
+    setIsLoading
   }
 }
 

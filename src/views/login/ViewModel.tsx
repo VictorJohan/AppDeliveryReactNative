@@ -9,8 +9,8 @@ import { RootStackParamList } from '../../../App';
 
 export const LoginViewModel = () => {
 
-    const {login} = new UsuarioService();
-    const {set} = LocalData();
+    const {login, setLocalUsuario} = new UsuarioService();
+
     const navigate = useNavigation<StackNavigationProp<RootStackParamList>>()
 
     const [message, setMessage] = useState('');
@@ -27,7 +27,7 @@ export const LoginViewModel = () => {
         if (validarForm()) {
             const response = await login(new Usuario(values));
             if (response.success) {
-                set('usuario', JSON.stringify(response.data));
+                setLocalUsuario(response.data!);
                 setMessage(response.message);
                 navigate.navigate('ProfileInfoScreen');
             }else{

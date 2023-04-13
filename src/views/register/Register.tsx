@@ -1,13 +1,17 @@
 import React, { useEffect, useState } from 'react'
-import { View, Text, Image, StyleSheet, TextInput, ToastAndroid, TouchableOpacity, ScrollView } from 'react-native'
+import { View, Text, Image, ActivityIndicator, StyleSheet, TextInput, ToastAndroid, TouchableOpacity, ScrollView } from 'react-native'
 import { RoundedButton } from '../../components/RoundedButton';
 import useViewModel from './ViewModel';
 import { InputTextIcon } from '../../components/InputTextIcon';
 import { styles } from './RegisterStyles'
 import { ModalPickImage } from '../../components/ModalPickImage';
+import { MyColors } from '../../theme/AppTheme';
+import { globalStyles } from '../../theme/GlobalStyles';
+
+
 
 export const RegisterScreen = () => {
-  const { nombres, message, apellidos, correo, telefono, image, password, confirmacionPassword, registrar, onChange, pickImage, takePhoto } = useViewModel();
+  const { nombres, message, apellidos, correo, telefono, isLoading, image, password, confirmacionPassword, registrar, onChange, pickImage, takePhoto } = useViewModel();
   const [modalVisible, setModalVisible] = useState(false);
   useEffect(() => {
     if (message != '') {
@@ -24,15 +28,15 @@ export const RegisterScreen = () => {
         <TouchableOpacity onPress={() => { setModalVisible(true) }}>
 
           {
-            image === '' 
-            ? 
-            <Image style={styles.imageProfile}
-              source={require('../../../assets/user_image.png')}
-            />
-            : 
-            <Image style={styles.imageProfile}
-            source={{uri: image}}
-          />
+            image === ''
+              ?
+              <Image style={styles.imageProfile}
+                source={require('../../../assets/user_image.png')}
+              />
+              :
+              <Image style={styles.imageProfile}
+                source={{ uri: image }}
+              />
           }
 
         </TouchableOpacity>
@@ -102,6 +106,10 @@ export const RegisterScreen = () => {
 
       </View>
       <ModalPickImage openGaleria={pickImage} openCamara={takePhoto} modalUseState={modalVisible} setModalUseState={setModalVisible} />
+      {
+        isLoading &&  <ActivityIndicator size="large" color={MyColors.primary} style={globalStyles.loading} />
+      }
+     
     </View>
   )
 }
