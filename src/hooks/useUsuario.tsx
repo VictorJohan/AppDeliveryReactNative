@@ -13,7 +13,7 @@ export const useUsuario = () => {
   }, [])
 
   const getUsuario = async () => {
-    const usuario = await get('usuario');
+    const usuario = (await get('usuario'));
     if(usuario !== undefined){
       setUsuario(JSON.parse(usuario));
     }else{
@@ -22,5 +22,5 @@ export const useUsuario = () => {
   }
 
  
-  return { usuario }
+  return { usuario}
 }

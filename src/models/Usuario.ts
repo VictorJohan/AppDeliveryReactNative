@@ -1,3 +1,5 @@
+import { Rol } from "./Rol";
+
 export class Usuario {
     usuarioId: number = 0;
     nombres:   string = '';
@@ -6,7 +8,7 @@ export class Usuario {
     correo:    string = '';
     password:  string = '';
     telefono:  string = '';
-
+    roles: Rol[] = [];
     constructor(init?: Partial<Usuario>) {
         Object.assign(this, init);
     }

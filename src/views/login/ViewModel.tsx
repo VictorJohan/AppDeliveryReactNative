@@ -29,6 +29,11 @@ export const LoginViewModel = () => {
             if (response.success) {
                 setLocalUsuario(response.data!);
                 setMessage(response.message);
+
+                if(response.data!.roles.length > 1){
+                    navigate.navigate('RolScreen');
+                    return;
+                }
                 navigate.navigate('ProfileInfoScreen');
             }else{
                 setMessage(response.message);
