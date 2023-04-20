@@ -11,7 +11,7 @@ export const LoginViewModel = () => {
 
     const {login, setLocalUsuario} = new UsuarioService();
 
-    const navigate = useNavigation<StackNavigationProp<RootStackParamList>>()
+    const navigate = useNavigation<StackNavigationProp<RootStackParamList, 'LoginScreen', undefined>>();
 
     const [message, setMessage] = useState('');
     const [values, setValues] = useState({
@@ -31,10 +31,10 @@ export const LoginViewModel = () => {
                 setMessage(response.message);
 
                 if(response.data!.roles.length > 1){
-                    navigate.navigate('RolScreen');
+                    navigate.replace('RolScreen');
                     return;
                 }
-                navigate.navigate('ProfileInfoScreen');
+                navigate.replace('AdminTabsNavigator');
             }else{
                 setMessage(response.message);
             }

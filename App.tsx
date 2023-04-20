@@ -3,15 +3,17 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { LoginScreen } from './src/views/login/Login';
 import { RegisterScreen } from './src/views/register/Register';
-import { ProfileInfoScreen } from './src/views/profile/info/ProfileInfo';
 import { RolScreen } from './src/views/rol/Rol';
+import { AdminTabsNavigator } from './src/navigators/AdminTabNavigator';
+import { ClienteTabsNavigator } from './src/navigators/ClienteTabNavigator';
 
 
 export type RootStackParamList = {
   LoginScreen: undefined;
   RegisterScreen: undefined;
-  ProfileInfoScreen: undefined;
   RolScreen: undefined;
+  AdminTabsNavigator: undefined;
+  ClienteTabsNavigator: undefined;
 };
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
@@ -32,16 +34,17 @@ const App = () => {
         />
 
         <Stack.Screen
-          options={{ title: 'Perfil', headerShown: true }}
-          name="ProfileInfoScreen"
-          component={ProfileInfoScreen}
-        />
-
-        <Stack.Screen
           options={{ title: 'Rol', headerShown: true }}
           name="RolScreen"
           component={RolScreen}
         />
+
+        <Stack.Screen component={AdminTabsNavigator} 
+        name='AdminTabsNavigator' />
+
+        <Stack.Screen component={ClienteTabsNavigator} 
+        name='ClienteTabsNavigator' />
+        
       </Stack.Navigator>
     </NavigationContainer>
   );
