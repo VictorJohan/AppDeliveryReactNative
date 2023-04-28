@@ -17,7 +17,7 @@ export class CategoriaService {
         }
     }
 
-    async getAll(): Promise<Response<Categoria[]>> {
+    async list(): Promise<Response<Categoria[]>> {
         try {
             const response = await ApiDelivery.get<Response<Categoria[]>>('categoria');
             return Promise.resolve(response.data);

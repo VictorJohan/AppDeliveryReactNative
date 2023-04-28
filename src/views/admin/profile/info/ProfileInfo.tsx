@@ -5,10 +5,10 @@ import useViewModel  from './ViewModel'
 
 export const AdminProfileInfoScreen = () => {
 
-
+  const { cerrarSession } = useViewModel();
   return (
     <View style={styles.container}>
-        <Button title="Cerrar Session" onPress={() => {}} />
+        <Button title="Cerrar Session" onPress={() => {cerrarSession()}} />
     </View>
   )
 }

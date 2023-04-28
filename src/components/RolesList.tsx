@@ -14,10 +14,10 @@ interface Props {
 export const RolesList = ({ roles }: Props) => {
     const navigate = useNavigation<StackNavigationProp<RootStackParamList, 'RolScreen', undefined>>()
     return (
-        <View style={{marginTop:50}}>
+        <View style={{ marginTop: 50 }}>
             <FlatList
                 data={roles} renderItem={({ item }) => <RolCard rol={item} navigate={navigate} />} />
-                
+
         </View>
     )
 }

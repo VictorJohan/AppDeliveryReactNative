@@ -12,8 +12,8 @@ interface Props {
 
 export const RolCard = ({ rol, navigate }: Props) => {
     return (
-        <TouchableOpacity style={style.container} onPress={() =>{
-            switch(rol.nombre){
+        <TouchableOpacity style={style.container} onPress={() => {
+            switch (rol.nombre) {
                 case 'RESTAURANTE':
                     navigate.replace('AdminTabsNavigator');
                     break;
@@ -42,7 +42,7 @@ const style = StyleSheet.create({
         borderColor: MyColors.primary,
         borderWidth: 2,
         marginBottom: 5,
-        
+
     },
     titulo: {
         fontSize: 20,
@@ -51,7 +51,7 @@ const style = StyleSheet.create({
     image: {
         width: '100%',
         height: 150,
-        resizeMode:'contain'
+        resizeMode: 'contain'
     },
     titleContainer: {
         alignItems: 'center',

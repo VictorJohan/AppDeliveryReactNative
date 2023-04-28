@@ -1,5 +1,5 @@
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { AdminCategoryListScreen } from '../views/admin/category/list/CategoryList';
+import { AdminCategoryListScreen } from '../views/admin/category/list/CategoriaList';
 import { AdminOrderListScreen } from '../views/admin/order/list/OrderList';
 import { AdminProfileInfoScreen } from '../views/admin/profile/info/ProfileInfo';
 import { Image, TouchableOpacity } from 'react-native';

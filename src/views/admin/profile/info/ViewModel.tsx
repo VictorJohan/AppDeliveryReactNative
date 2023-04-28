@@ -1,9 +1,10 @@
 import React from 'react'
-import { useUsuario } from '../../../hooks/useUsuario'
+
 import { useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
-import { RootStackParamList } from '../../../../App';
-import { LocalData } from '../../../data/LocalData';
+import { RootStackParamList } from '../../../../../App';
+import { LocalData } from '../../../../data/LocalData';
+
 
 export const ProfileInfoViewModel = () => {
 
