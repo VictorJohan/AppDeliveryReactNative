@@ -4,14 +4,14 @@ import { View, TextInput, Image, StyleSheet, KeyboardType } from 'react-native'
 interface Props {
     icon: any;
     value: string;
-    placeholder: string;
-    keyboardType: KeyboardType;
+    placeholder?: string;
+    keyboardType?: KeyboardType;
     secureTextEntry?: boolean;
     property: string;
     onChangeText: (property: string, value: any) => void;
 }
 
-export const InputTextIcon = ({icon, placeholder, keyboardType, secureTextEntry=false, value, onChangeText, property}: Props) => {
+export const InputTextIcon = ({icon, placeholder='', keyboardType='default', secureTextEntry=false, value, onChangeText, property}: Props) => {
     return (
         <View style={styles.formTextInput}>
             <Image style={styles.inputIcon} source={icon} />

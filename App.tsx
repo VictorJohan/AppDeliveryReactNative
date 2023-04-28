@@ -6,6 +6,7 @@ import { RegisterScreen } from './src/views/register/Register';
 import { RolScreen } from './src/views/rol/Rol';
 import { AdminTabsNavigator } from './src/navigators/AdminTabNavigator';
 import { ClienteTabsNavigator } from './src/navigators/ClienteTabNavigator';
+import { CategoriaScreen } from './src/views/admin/category/Categoria';
 
 
 export type RootStackParamList = {
@@ -14,6 +15,7 @@ export type RootStackParamList = {
   RolScreen: undefined;
   AdminTabsNavigator: undefined;
   ClienteTabsNavigator: undefined;
+  CategoriaScreen: undefined;
 };
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
@@ -39,12 +41,18 @@ const App = () => {
           component={RolScreen}
         />
 
-        <Stack.Screen component={AdminTabsNavigator} 
-        name='AdminTabsNavigator' />
+        <Stack.Screen component={AdminTabsNavigator}
+          name='AdminTabsNavigator' />
 
-        <Stack.Screen component={ClienteTabsNavigator} 
-        name='ClienteTabsNavigator' />
-        
+        <Stack.Screen
+          options={{ title: 'Mantenimiento de Categorias', headerShown: true }}
+          name="CategoriaScreen"
+          component={CategoriaScreen}
+        />
+
+        <Stack.Screen component={ClienteTabsNavigator}
+          name='ClienteTabsNavigator' />
+
       </Stack.Navigator>
     </NavigationContainer>
   );

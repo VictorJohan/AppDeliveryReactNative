@@ -60,8 +60,22 @@ export const FirebaseManager = () => {
     return url;
   };
 
+  const uploadImageCategoria = async (uri: string, imageName: string) => {
+    init();
+
+    const storageRef = ref(storage, `Categorias/${imageName}`);
+
+    // 'file' comes from the Blob or File API
+    let url = await uploadBytes(storageRef, await uriToBlob(uri)).then(async (snapshot) => {
+      return await getDownloadURL(storageRef);
+    });
+
+    return url;
+  };
+
   return {
     uploadImageProfile,
-    uploadImageProducts
+    uploadImageProducts,
+    uploadImageCategoria,
   };
 };

@@ -18,7 +18,6 @@ export const ModalPickImage = ({ openCamara, openGaleria, setModalUseState, moda
                 transparent={true}
                 visible={modalUseState}
                 onRequestClose={() => {
-                    Alert.alert('Modal has been closed.');
                     setModalUseState(!modalUseState);
                 }}>
                 <View style={styles.centeredView}>

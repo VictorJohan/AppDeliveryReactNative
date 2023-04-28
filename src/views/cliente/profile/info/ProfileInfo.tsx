@@ -15,7 +15,8 @@ import { StackNavigationProp } from '@react-navigation/stack'
 import { RootStackParamList } from '../../../../../App'
 
 export const ClienteProfileInfoScreen = () => {
-  const { nombres, message, apellidos, correo, telefono, isLoading, image, password, confirmacionPassword, usuario,cerrarSession, cargarInformacion, onChange, pickImage, takePhoto } = useViewModel();
+  const { nombres, message, apellidos, correo, telefono, isLoading, image, password, confirmacionPassword, usuario,
+    cerrarSession, cargarInformacion, onChange, pickImage, takePhoto, actualizar } = useViewModel();
   const [modalVisible, setModalVisible] = useState(false);
 
   const navigate = useNavigation<StackNavigationProp<RootStackParamList>>()
@@ -47,7 +48,7 @@ export const ClienteProfileInfoScreen = () => {
               :
               <Image style={styles.imageProfile}
                 source={{ uri: image }}
-              />
+              />              
           }
 
         </TouchableOpacity>
@@ -93,7 +94,7 @@ export const ClienteProfileInfoScreen = () => {
 
 
           <View style={{ marginTop: 70 }}>
-            <RoundedButton text='Actualizar' onPress={() => { }} />
+            <RoundedButton text='Actualizar' onPress={ async () => {await actualizar() }} />
           </View>
         </ScrollView>
 

@@ -14,7 +14,7 @@ export const LoginScreen = () => {
     const { correo, password, message, onChange, ingresar } = useViewModel();
     const navigate = useNavigation<StackNavigationProp<RootStackParamList>>()
     const {usuario} = useUsuario();
-    console.log('usuario:',usuario);
+    
     
 
     useEffect(() => {

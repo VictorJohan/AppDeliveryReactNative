@@ -4,6 +4,7 @@ import { Response } from "../api/Response";
 import { Usuario } from "../models/Usuario";
 import { FirebaseManager } from "../utils/Firebase";
 import { LocalData } from "../data/LocalData";
+import {v4 as guid} from 'uuid'
 
 const {set, get} = LocalData();
 

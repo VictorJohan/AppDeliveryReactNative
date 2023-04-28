@@ -10,10 +10,11 @@ export const useUsuario = () => {
 
   useEffect(() => {
     getUsuario();
-  }, [])
+  }, [usuario])
 
   const getUsuario = async () => {
     const usuario = (await get('usuario'));
+    
     if(usuario !== undefined){
       setUsuario(JSON.parse(usuario));
     }else{
