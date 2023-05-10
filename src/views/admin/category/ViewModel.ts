@@ -8,8 +8,8 @@ const CategoriaViewModel = () => {
 
   const [categoria, setCategoria] = useState(new Categoria());
   const [message, setMessage] = useState('');
-  const { save,UpdateImageCategoria } = new CategoriaService();
-  
+  const { save, UpdateImageCategoria, deleteCategoria, get} = new CategoriaService();
+
 
 
   const onChange = (property: string, value: any) => {
@@ -50,11 +50,33 @@ const CategoriaViewModel = () => {
       const response = await save(categoria);
       if (response.success) {
         setMessage('Se guardó correctamente');
+
         setCategoria(new Categoria());
+
         await UpdateImageCategoria(response.data!)
       } else {
         setMessage(response.message);
       }
+    }
+  }
+
+  const eliminarCategoria = async (id: number) => {
+    const response = await deleteCategoria(id);
+    if (response.success) {
+      setMessage(response.message);
+      return true;
+    } else {
+      setMessage(response.message);
+      return false;
+    }
+  }
+
+  const getById = async (id: number) => {
+    const response = await get(id);
+    if (response.success) {
+      setCategoria(response.data!);
+    } else {
+      setMessage(response.message);
     }
   }
 
@@ -82,6 +104,8 @@ const CategoriaViewModel = () => {
     pickImage,
     takePhoto,
     guardar,
+    getById,
+    eliminarCategoria,
     message
   }
 }

@@ -12,7 +12,6 @@ const ViewModelCategoriaList = () => {
         const response = await list();
         if (response.success) {
             setCategorias(response.data!);
-            console.log(response.data);
         }
     }
 

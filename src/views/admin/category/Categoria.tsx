@@ -5,11 +5,22 @@ import { InputTextIcon } from '../../../components/InputTextIcon';
 import useViewModel from './ViewModel';
 import { RoundedButton } from '../../../components/RoundedButton';
 import { ModalPickImage } from '../../../components/ModalPickImage';
+import { RouteProp } from '@react-navigation/native';
+import { StackNavigationProp } from '@react-navigation/stack';
+import { RootStackParamList } from '../../../../App';
+
+type CategoriaScreenRouteProp = RouteProp<RootStackParamList, 'CategoriaScreen'>;
+type CategoriaScreenNavigationProp = StackNavigationProp<RootStackParamList, 'CategoriaScreen'>;
+
+type CategoriaScreenProps = {
+  route: CategoriaScreenRouteProp;
+  navigation: CategoriaScreenNavigationProp;
+};
 
 
-export const CategoriaScreen = () => {
+export const CategoriaScreen = ({ route }: CategoriaScreenProps) => {
 
-  const { nombre, imagen, descripcion, message, onChange, pickImage, takePhoto, guardar } = useViewModel();
+  const { nombre, imagen, descripcion, categoriaId,message, onChange, pickImage, takePhoto, guardar, getById } = useViewModel();
   const [modalVisible, setModalVisible] = React.useState(false);
 
   useEffect(() => {
@@ -17,6 +28,12 @@ export const CategoriaScreen = () => {
       ToastAndroid.show(message, ToastAndroid.LONG);
     }
   }, [message])
+
+  useEffect(() => {
+    if (route.params?.id) {
+      getById(route.params.id);
+    }
+  }, [route.params?.id])
 
   return (
     <View style={styles.container}>

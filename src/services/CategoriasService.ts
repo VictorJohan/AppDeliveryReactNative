@@ -28,6 +28,28 @@ export class CategoriaService {
         }
     }
 
+    async get(id: number): Promise<Response<Categoria>> {
+        try {
+            const response = await ApiDelivery.get<Response<Categoria>>(`categoria/${id}`);
+            return Promise.resolve(response.data);
+        } catch (error) {
+            let e = (error as AxiosError);
+            const apiError: Response<Categoria> = JSON.parse(JSON.stringify(e.response?.data));
+            return Promise.resolve(apiError)
+        }
+    }
+    async deleteCategoria(id: number): Promise<Response<Categoria>> {
+        try {
+            console.log(id);
+            const response = await ApiDelivery.delete<Response<Categoria>>(`categoria/${id}`);
+            return Promise.resolve(response.data);
+        } catch (error) {
+            let e = (error as AxiosError);
+            const apiError: Response<Categoria> = JSON.parse(JSON.stringify(e.response?.data));
+            return Promise.resolve(apiError)
+        }
+    }
+
     async UpdateImageCategoria(categoria: Categoria): Promise<Response<Categoria>> {
         try {
             

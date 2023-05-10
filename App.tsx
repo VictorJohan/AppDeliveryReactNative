@@ -15,7 +15,7 @@ export type RootStackParamList = {
   RolScreen: undefined;
   AdminTabsNavigator: undefined;
   ClienteTabsNavigator: undefined;
-  CategoriaScreen: undefined;
+  CategoriaScreen: { id?: number } | undefined;
 };
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
